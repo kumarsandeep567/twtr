@@ -7,8 +7,6 @@ env:
 
 phases: 
     install: 
-      commands: 
-        - echo "Installing Docker 18..."
       runtime-versions:
         docker: 18
   pre_build:
