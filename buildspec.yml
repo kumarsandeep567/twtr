@@ -7,8 +7,11 @@ env:
 
 phases: 
   install: 
-    runtime-versions:
-      docker: 18
+    commands:
+      - echo "Installing Docker..."
+      - apt-get update
+      - apt-get install -y docker.io
+      - service docker start
   pre_build:
     commands:
       - echo "Attempting to login to AWS ECR..."
