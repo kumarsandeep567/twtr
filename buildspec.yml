@@ -2,19 +2,19 @@ version: 0.2
 
 env:
   variables:
-    AWS_REGION_2: "us-east-2"
+    AWS_REGION: "us-east-2"
     REACT_APP_API_SERVICE_URL: "http://localhost:5000"
 
 phases: 
-    install: 
-      runtime-versions:
-        docker: 18
+  install: 
+    runtime-versions:
+      docker: 18
   pre_build:
     commands:
       - echo "Attempting to login to AWS ECR..."
       - >
         aws ecr get-login-password --region $AWS_REGION \
-          | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+        | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
   build:
     commands:
       - echo "Building images [dev]..."
@@ -22,27 +22,27 @@ phases:
       - echo "Building images [prod]..."
       - >
         docker build \
-          --no-cache \
-          -f db/Dockerfile \
-          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod \
-          ./db
+        --no-cache \
+        -f db/Dockerfile \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod \
+        ./db
       - >
         docker build \
-          --no-cache \
-          -f be/Dockerfile \
-          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
-          ./be
+        --no-cache \
+        -f be/Dockerfile \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
+        ./be
       - >
         docker build \
-          --no-cache \
-          -f fe/Dockerfile \
-          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
-          --build-arg NODE_ENV=production \
-          --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
-          ./fe
+        --no-cache \
+        -f fe/Dockerfile \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
+        --build-arg NODE_ENV=production \
+        --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
+        ./fe
   post_build:
     commands:
-    - echo "Pushing [prod] images to AWS ECR..."
-    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod
-    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod
-    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod
+      - echo "Pushing [prod] images to AWS ECR..."
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod
