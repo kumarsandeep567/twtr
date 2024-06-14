@@ -9,13 +9,25 @@ phases:
   install: 
     commands:
       - echo "Installing Docker..."
-      # Add Docker's official GPG key:
       - apt-get update
-      - apt-get install ca-certificates curl coreutils
-      - install -m 0755 -d /etc/apt/keyrings
-      - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-      - chmod a+r /etc/apt/keyrings/docker.asc
-      # Add the repository to Apt sources:
+      # Download Docker Engine packages:
+      - curl -fsSL https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/containerd.io_1.6.9-1_amd64.deb
+      - curl -fsSL https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce_26.1.4-1~ubuntu.22.04~jammy_amd64.deb
+      - curl -fsSL https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_26.1.4-1~ubuntu.22.04~jammy_amd64.deb
+      - curl -fsSL https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-buildx-plugin_0.14.1-1~ubuntu.22.04~jammy_amd64.deb
+      - curl -fsSL https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-compose-plugin_2.27.1-1~ubuntu.22.04~jammy_amd64.deb
+      # Install the downloaded packages
+      - dpkg -i "containerd.io_1.6.9-1_amd64.deb"
+      - dpkg -i "docker-ce_26.1.4-1~ubuntu.22.04~jammy_amd64.deb"
+      - dpkg -i "docker-ce-cli_26.1.4-1~ubuntu.22.04~jammy_amd64.deb"
+      - dpkg -i "docker-buildx-plugin_0.14.1-1~ubuntu.22.04~jammy_amd64.deb"
+      - dpkg -i "docker-compose-plugin_2.27.1-1~ubuntu.22.04~jammy_amd64.deb"
+      # Remove the installer packages
+      - rm -f "containerd.io_1.6.9-1_amd64.deb"
+      - rm -f "docker-ce_26.1.4-1~ubuntu.22.04~jammy_amd64.deb"
+      - rm -f "docker-ce-cli_26.1.4-1~ubuntu.22.04~jammy_amd64.deb"
+      - rm -f "docker-buildx-plugin_0.14.1-1~ubuntu.22.04~jammy_amd64.deb"
+      - rm -f "docker-compose-plugin_2.27.1-1~ubuntu.22.04~jammy_amd64.deb"
       - > 
         echo \
         "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
