@@ -7,31 +7,36 @@ env:
 
 phases: 
     install: 
-        commands: 
-        - echo "Installing Docker 18..." 
-        - curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-18.09.9.tgz -o docker.tgz 
-        - tar xzvf docker.tgz 
-        - mv docker/* /usr/bin/ 
-        - dockerd & # Start the Docker daemon in the background 
-        - while(! docker stats --no-stream ); do echo "Waiting for Docker to start..."; sleep 1; done 
+      commands: 
+        - echo "Installing Docker 18..."
+      runtime-versions:
+        docker: 18
   pre_build:
     commands:
-      - echo logging in to ecr...
+      - echo "Attempting to login to AWS ECR..."
       - >
         aws ecr get-login-password --region $AWS_REGION \
           | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
   build:
     commands:
-      - echo building dev images...
+      - echo "Building images [dev]..."
       - docker-compose up -d --build
-      - echo building prod images...
+      - echo "Building images [prod]..."
       - >
         docker build \
+          --no-cache \
+          -f db/Dockerfile \
+          -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod \
+          ./db
+      - >
+        docker build \
+          --no-cache \
           -f be/Dockerfile \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
           ./be
       - >
         docker build \
+          --no-cache \
           -f fe/Dockerfile \
           -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
           --build-arg NODE_ENV=production \
@@ -39,6 +44,7 @@ phases:
           ./fe
   post_build:
     commands:
-    - echo pushing prod images to ecr...
+    - echo "Pushing [prod] images to AWS ECR..."
+    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod
     - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod
     - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod
