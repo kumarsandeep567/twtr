@@ -37,26 +37,9 @@ phases:
       - echo "Building images [dev]..."
       - docker-compose up -d --build
       - echo "Building images [prod]..."
-      - >
-        docker build \
-        --no-cache \
-        -f db/Dockerfile \
-        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod \
-        ./db
-      - >
-        docker build \
-        --no-cache \
-        -f be/Dockerfile \
-        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod \
-        ./be
-      - >
-        docker build \
-        --no-cache \
-        -f fe/Dockerfile \
-        -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod \
-        --build-arg NODE_ENV=production \
-        --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL \
-        ./fe
+      - docker build --no-cache -f ./db/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod ./db
+      - docker build --no-cache -f ./be/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod ./be
+      - docker build --no-cache -f ./fe/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod --build-arg NODE_ENV=production --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL ./fe
   post_build:
     commands:
       - echo "Pushing [prod] images to AWS ECR..."
