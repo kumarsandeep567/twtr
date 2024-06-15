@@ -8,7 +8,8 @@ FROM mongo:latest
 # Copy the MongoDB configuration file (optional)
 # COPY mongod.conf /etc/mongo/mongod.conf
 
-# Expose the default MongoDB port
+# Remember to map external port to the container's 
+# port 27017
 EXPOSE 27017
 
 # Command to run MongoDB
