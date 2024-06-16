@@ -4,6 +4,7 @@ env:
   variables:
     AWS_REGION: "us-east-2"
     REACT_APP_API_SERVICE_URL: "http://flask-react-alb-139581936.us-east-2.elb.amazonaws.com"
+    DATABASE_URL: "http://flask-react-alb-139581936.us-east-2.elb.amazonaws.com/connectdb"
 
 phases: 
   install: 
@@ -35,7 +36,7 @@ phases:
   build:
     commands:
       - echo "Building images [prod]..."
-      - docker build --no-cache -f ./db/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod ./db
+      - docker build --no-cache -f ./db/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-db:prod --build-arg DATABASE_URL=$DATABASE_URL ./db
       - docker build --no-cache -f ./be/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-be:prod ./be
       - docker build --no-cache -f ./fe/Dockerfile -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/twtr-fe:prod --build-arg NODE_ENV=production --build-arg REACT_APP_API_SERVICE_URL=$REACT_APP_API_SERVICE_URL ./fe
   post_build:
