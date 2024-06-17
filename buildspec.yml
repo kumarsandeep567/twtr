@@ -3,8 +3,8 @@ version: 0.2
 env:
   variables:
     AWS_REGION: "us-east-2"
-    REACT_APP_API_SERVICE_URL: "http://flask-react-alb-139581936.us-east-2.elb.amazonaws.com"
-    DATABASE_URL: "http://flask-react-alb-139581936.us-east-2.elb.amazonaws.com/connectdb"
+    REACT_APP_API_SERVICE_URL: "http://flask-react-alb-82252855.us-east-2.elb.amazonaws.com"
+    DATABASE_URL: "http://flask-react-alb-82252855.us-east-2.elb.amazonaws.com/connectdb"
 
 phases: 
   install: 
