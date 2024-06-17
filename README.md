@@ -1,2 +1,7 @@
 # twtr
 Dummy tweeting app using React, Flask, and MongoDB
+
+
+NOTE:
+TARGET GROUPS HAVE 0 REGISTERED TARGETS (EC2 instances)!
+IF THE TARGETS ARE NIL, THEN THE CONTAINERS WILL NEVER BE DEPLOYED!
