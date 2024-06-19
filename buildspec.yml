@@ -11,7 +11,7 @@ phases:
     commands:
       - echo "Installing Docker..."
       - apt-get update
-      - apt-get install wget
+      - apt-get install wget gunicorn
       # Download Docker Engine packages:
       - wget --quiet -O "containerd.deb" "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/containerd.io_1.6.33-1_amd64.deb"
       - wget --quiet -O "docker_ce_cli.deb" "https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_26.1.4-1~ubuntu.22.04~jammy_amd64.deb"
