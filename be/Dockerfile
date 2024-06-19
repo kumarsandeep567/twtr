@@ -38,4 +38,8 @@ EXPOSE 5000
 # Start Gunicorn server with 3 threads listening 
 # on port 5000 and set target application to 
 # wsgi.py file
-CMD ["gunicorn" "--threads=3" "--bind 0.0.0.0:5000" "wsgi:app"]
+
+# There seems to be some issues with gunicorn 
+# not being visible in the PATH variable
+# Try running the app via python3
+CMD ["python3", "twtr.py"]
