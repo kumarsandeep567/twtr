@@ -1,5 +1,8 @@
-# twtr
+# twtr 
 A dummy tweeting app using three microservices.
+
+## Build Status
+![](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZC8wWTBjdHNxajYvVTQxd0lObnFQalVVdDRDWkZ0SXAvT2ZONnJnbE9nV0FSa3lqcklGK2FnV2tVRStyT1BOaXRVMmRCMHhBQzlnZE8yZnQydVppYnR3PSIsIml2UGFyYW1ldGVyU3BlYyI6Im5nd04xcXpORlo3NllyMTEiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 
 ## Overview
 This project is about a simple tweeting application built with three microservices, each containerized and deployed on separate AWS EC2 instances. 
