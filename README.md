@@ -5,7 +5,7 @@ A dummy tweeting app using three microservices.
 ![](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiZC8wWTBjdHNxajYvVTQxd0lObnFQalVVdDRDWkZ0SXAvT2ZONnJnbE9nV0FSa3lqcklGK2FnV2tVRStyT1BOaXRVMmRCMHhBQzlnZE8yZnQydVppYnR3PSIsIml2UGFyYW1ldGVyU3BlYyI6Im5nd04xcXpORlo3NllyMTEiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 
 ## Overview
-This project is about a simple tweeting application built with three microservices, each containerized and deployed on separate AWS EC2 instances. 
+This project is about a simple tweeting application built with three microservices, each containerized and deployed on a cluster using AWS Elastic Container Service, incorporating Continuous Integration and Continuous Deployment (CI/CD) via AWS CodeBuild and Terraform.
 
 ## Microservices
 1. **Frontend Microservice**
@@ -42,9 +42,6 @@ Each microservice is containerized using Docker and deployed on AWS infrastructu
 5. **Cluster and Scaling Setup:**
    - A cluster is created comprising 3 services, 3 tasks, and 3 EC2 instances.
    - An automatic scaling group with a Target Tracking Scaling Policy is configured to handle scaling based on traffic load.
-
-## Purpose
-This application serves as a learning project to understand Continuous Integration and Continuous Deployment (CI/CD) using AWS CodeBuild, AWS Elastic Container Service (ECS), and Terraform.
 
 ## Future Work
 - **Terraform Files:** The Terraform files for infrastructure as code (IaC) will be uploaded soon.
