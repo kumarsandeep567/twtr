@@ -123,11 +123,13 @@ const SignIn = () => {
     console.log("sending out:");
     console.log(paramdict);
 
-    console.log("Signin.js: fetching from " + `${process.env.REACT_APP_API_SERVICE_URL}/login`)
+    const host = window.location.host;
+
+    console.log("Signin.js: fetching from " + `http://${host}/login`)
     // verify user/pwd, get encoded userid as access and refresh tokens in return
     //fetch("http://localhost:5000/login", config)
     //fetch(`${process.env.REACT_APP_BE_NETWORK}:${process.env.REACT_APP_BE_PORT}/login`, config)
-    fetch(`${process.env.REACT_APP_API_SERVICE_URL}/login`, config)
+    fetch(`http://${host}/login`, config)
       .then(response => response.json())
       .then(data => {
 
@@ -167,7 +169,8 @@ const SignIn = () => {
       body: JSON.stringify(paramdict)
     }
 
-    console.log("Signin.js: fetching from " + `${process.env.REACT_APP_API_SERVICE_URL}/fastlogin`)
+    const host = window.location.host;
+    console.log("Signin.js: fetching from " + `http://${host}/fastlogin`)
     // verify user/pwd, get encoded userid as access and refresh tokens in return
     //fetch("http://localhost:5000/fastlogin", config)
     //fetch(`${process.env.REACT_APP_BE_NETWORK}:${process.env.REACT_APP_BE_PORT}/fastlogin`, config)
