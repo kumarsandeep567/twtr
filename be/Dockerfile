@@ -28,8 +28,7 @@ USER dummyuser
 ENV FLASK_ENV=production
 
 # Set the MongoDB url
-ARG DATABASE_URL
-ENV DATABASE_URL $DATABASE_URL
+ENV DATABASE_URL {$DATABASE_URL}
 
 # Remember to map external port to the container's 
 # port 5000
