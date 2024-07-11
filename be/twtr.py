@@ -147,12 +147,14 @@ def doc():
         <br />
         Run the following endpoints:<br />
         From collection:<br/>
-        http://localhost:5000/tweets<br />
-        http://localhost:5000/tweets-week<br />
-        http://localhost:5000/tweets-week-results<br />
+        /tweets<br />
+        /tweets-week<br />
+        /tweets-week-results<br />
+        <br/>
         Create new data:<br />
-        http://localhost:5000/mock-tweets<br />
-        Optionally, to purge database: http://localhost:5000/purge-db"""
+        /mock-tweets<br />
+        <br />
+        Optionally, to purge database: /purge-db"""
 
 # Returns an encoded userid as jwt access and a refresh tokens. Requires username 
 # and password. Refresh token not used. Only meant to be used with token issuer,
