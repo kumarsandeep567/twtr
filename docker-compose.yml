@@ -1,7 +1,3 @@
-# VERSION IS OBSOLETE
-# see here https://docs.docker.com/compose/compose-file/compose-versioning/
-# version: '3.1'
-
 services:
 
   db:
@@ -11,8 +7,8 @@ services:
     ports: 
       - 27017:27017
     networks:
-      - backend
-
+      - twtrnetwork
+  
   be:
     build:
       context: ./be
@@ -21,30 +17,27 @@ services:
       - 5000:5000
     environment:
       - FLASK_ENV=development
-      - DATABASE_TEST_URL=mongodb://db:27017/
+      - DATABASE_URL=mongodb://db:27017/
+    depends_on:
+      - db
     networks:
-      - backend
+      - twtrnetwork
 
   fe:
-    stdin_open: true
     build:
       context: ./fe
+      args:
+        - NODE_ENV=development
       dockerfile: Dockerfile
     ports:
       - 80:80
     environment:
-      - NODE_ENV=development
-      - REACT_APP_BE_NETWORK=backend
-      - REACT_APP_BE_PORT=5000
-      - REACT_APP_API_SERVICE_URL=${REACT_APP_API_SERVICE_URL}
+      - REACT_APP_API_SERVICE_URL=http://be:5000
     depends_on:
       - be
     networks:
-      - frontend
-      - backend
+      - twtrnetwork
 
 networks:
-  frontend:
-    driver: bridge
-  backend:
+  twtrnetwork:
     driver: bridge
