@@ -22,10 +22,10 @@ RUN pip3 install -r requirements.txt
 RUN adduser --disabled-password dummyuser
 USER dummyuser
 
-# Set Flask to run in production mode
-# To run Flask in development mode, 
-# set FLASK_ENV=development
-ENV FLASK_ENV=production
+# Set Flask to run in development mode
+# To run Flask in production mode, 
+# set FLASK_ENV=production
+ENV FLASK_ENV {$FLASK_ENV}
 
 # Set the MongoDB url
 ENV DATABASE_URL {$DATABASE_URL}
