@@ -60,7 +60,6 @@ variable "cluster_security_group" {
     type        = object({
         name    = string
         desc    = string
-        vpc_id  = string
     })
     description = "Security Group for the ECS cluster"
 }
